@@ -1,0 +1,5 @@
+/secrets.txt
+/.envrc
+/dist
+node_modules/
+npm-debug.log
