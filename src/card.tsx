@@ -45,8 +45,21 @@ export class Card extends React.Component<Props> {
             style.boxShadow = "0px 0px 20px 5px #fb9"
         }
         return <div onClick={this.props.onTap} style={style}>
-            {colorSlots}
-            {numberSlots}
+            <div style={{
+                display: 'flex',
+                flexDirection: "column",
+            }}>
+                <div style={{
+                    display: 'flex',
+                }}>
+                    {numberSlots}
+                </div>
+                <div style={{
+                    display: 'flex',
+                }}>
+                    {colorSlots}
+                </div>
+            </div>
             <button onClick={wsp(this.props.onDiscard)}>Discard</button>
         </div>
     }
@@ -106,19 +119,16 @@ class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
 
 class NumberSlot extends React.Component<{n: CardNumber, possible: boolean}> {
     render() {
-        return <Slot feature={this.props.n} isColor={false} possible={this.props.possible}/>
-    }
-}
-
-class Slot extends React.Component<{feature: CardFeature, isColor: boolean, possible: boolean}> {
-    render() {
-        let style = {}
-        if (!this.props.possible) {
-            style = {
-                color: 'grey',
-                textDecoration: 'line-through',
-            }
+        let style = {
+            padding: 5,
+            color: 'white',
+            fontSize: "30px",
+            textDecoration: "",
         }
-        return <div style={style}>{this.props.feature}</div>
+        if (!this.props.possible) {
+            style.color = 'grey'
+            style.textDecoration = 'line-through'
+        }
+        return <div style={style}>{this.props.n}</div>
     }
 }
