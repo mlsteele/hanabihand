@@ -3,6 +3,7 @@
         "esModuleInterop": true,
         "target": "es6",
         "noImplicitAny": true,
+        "strictNullChecks": true,
         "module": "commonjs",
         "moduleResolution": "node",
         "sourceMap": true,

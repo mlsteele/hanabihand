@@ -1,4 +1,4 @@
-import {CardColor, CardNumber, allColors, CardFeature} from './common'
+import {CardColor, CardNumber, CardFeature} from './common'
 
 export interface Card {
     selected: boolean,
