@@ -5,6 +5,7 @@ import {State} from './model'
 import { debug } from 'util';
 
 type Props = {
+    selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
 }
@@ -17,7 +18,11 @@ export class Card extends React.Component<Props> {
         const numberSlots = allNumbers.map((n) => {
             return <NumberSlot n={n} live={this.props.numbers[n]}/>
         })
-        return <div>
+        let backgroundColor;
+        if this.props.selected {
+            backgroundColor = 'green'
+        }
+        return <div style={{backgroundColor}}>
             {colorSlots}
             {numberSlots}
         </div>
@@ -27,10 +32,7 @@ export class Card extends React.Component<Props> {
 export default connect((state: State, ownProps: {
     i: number
 }): Props => {
-    return {
-        colors: state.Cards[ownProps.i].colors,
-        numbers: state.Cards[ownProps.i].numbers,
-    }
+    return state.Cards[ownProps.i]
 })(Card)
 
 class ColorSlot extends React.Component<{color: CardColor, live: boolean}> {

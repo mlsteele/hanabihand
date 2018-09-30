@@ -1,6 +1,7 @@
 import {CardColor, CardNumber, allColors} from './common'
 
 export interface Card {
+    selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
 }
@@ -12,6 +13,7 @@ export type State = {
 export const defaultState: State = {
     Cards: [0, 1, 2, 3, 4].map((): Card => {
         return {
+            selected: false,
             colors: {
                 "white": true,
                 "yellow": true,
