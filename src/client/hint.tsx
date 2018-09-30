@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {CardFeature} from './common'
 import {State} from './model'
 import * as actions from './actions'
+import * as CSS from 'csstype';
 
 type StateProps = {
     selected: boolean,
@@ -17,11 +18,21 @@ type Props = StateProps & DispatchProps
 
 export class Hint extends React.Component<Props> {
     render() {
-        let backgroundColor;
+        let backgroundColor = '#ddf'
         if (this.props.selected) {
             backgroundColor = 'green'
         }
-        return <div onClick={this.props.onTap} style={{backgroundColor}}>
+        const size = "70px"
+        const style = {
+            backgroundColor,
+            width: size,
+            height: size,
+            borderRadius: size,
+            lineHeight: size,
+            textAlign: 'center' as CSS.TextAlignProperty, // why is this cast necessary?
+            verticalAlign: 'middle',
+        }
+        return <div onClick={this.props.onTap} style={style}>
             {this.props.feature}
         </div>
     }
