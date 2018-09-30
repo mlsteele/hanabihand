@@ -7,11 +7,11 @@ export interface Card {
 }
 
 export type State = {
-    Cards: Card[]
+    cards: Card[]
 }
 
 export const defaultState: State = {
-    Cards: [0, 1, 2, 3, 4].map((): Card => {
+    cards: [0, 1, 2, 3, 4].map((): Card => {
         return {
             selected: false,
             colors: {
