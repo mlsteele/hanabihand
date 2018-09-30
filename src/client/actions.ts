@@ -1,3 +1,5 @@
+import {CardFeature} from './common'
+
 export const tapCard = (i: number): {
     type: "tapCard"
     i: number,
@@ -6,10 +8,18 @@ export const tapCard = (i: number): {
     i,
 })
 
-export const noOp = (i: number): {
-    type: "noOp",
+export const tapHint = (feature: CardFeature): {
+    type: "tapHint"
+    feature: CardFeature,
 } => ({
-    type: "noOp",
+    type: "tapHint",
+    feature,
 })
 
-export type Action = ReturnType<typeof tapCard> | ReturnType<typeof noOp>
+export const reset = (): {
+    type: "reset"
+} => ({
+    type: "reset",
+})
+
+export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof reset>

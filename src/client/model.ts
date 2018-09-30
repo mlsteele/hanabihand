@@ -1,4 +1,4 @@
-import {CardColor, CardNumber, allColors} from './common'
+import {CardColor, CardNumber, allColors, CardFeature} from './common'
 
 export interface Card {
     selected: boolean,
@@ -8,6 +8,7 @@ export interface Card {
 
 export type State = {
     cards: Card[]
+    hints: {[q in CardFeature]: boolean}
 }
 
 export const defaultState: State = {
@@ -29,5 +30,17 @@ export const defaultState: State = {
                 5: true,
             },
         }
-    })
+    }),
+    hints: {
+        "white": false,
+        "yellow": false,
+        "green": false,
+        "blue": false,
+        "red": false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+    },
 }

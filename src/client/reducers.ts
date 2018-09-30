@@ -12,6 +12,10 @@ const reducer: Reducer<State, Action> = (state, action) => {
     switch (action.type) {
         case "tapCard":
             return {...state, cards: pluckaroo(state.cards, action.i, (x) => ({...x, selected: !x.selected}))}
+        case "tapHint":
+            return {...state, hints: {...state.hints, [action.feature]: !state.hints[action.feature]}}
+        case "reset":
+            return defaultState
         default:
             if (state === undefined) {
                 return defaultState
