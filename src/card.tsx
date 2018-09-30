@@ -26,11 +26,20 @@ export class Card extends React.Component<Props> {
         const numberSlots = allNumbers.map((n) => {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
-        let backgroundColor;
-        if (this.props.selected) {
-            backgroundColor = 'green'
+        let style = {
+            margin: 10,
+            padding: 20,
+            backgroundColor: "#cce",
+            transition: "all 0.15s",
+            transform: "",
+            boxShadow: "",
+            "-webkit-tap-highlight-color": "transparent",
         }
-        return <div onClick={this.props.onTap} style={{backgroundColor}}>
+        if (this.props.selected) {
+            style.transform = "scale(1.05)"
+            style.boxShadow = "0px 0px 20px 5px #8dc"
+        }
+        return <div onClick={this.props.onTap} style={style}>
             {colorSlots}
             {numberSlots}
             <button onClick={wsp(this.props.onDiscard)}>Discard</button>
@@ -63,7 +72,21 @@ export default connect<StateProps, DispatchProps, {
 
 class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
     render() {
-        return <Slot feature={this.props.color} isColor={true} possible={this.props.possible}/>
+        let size = 25;
+        let style = {
+            margin: 5,
+            width: size,
+            height: size,
+            borderRadius: size,
+            backgroundColor: this.props.color as string,
+            transition: "all 0.15s",
+            transform: "",
+        }
+        if (!this.props.possible) {
+            style.backgroundColor = "grey"
+            style.transform = "scale(0.5)"
+        }
+        return <div style={style}></div>
     }
 }
 
