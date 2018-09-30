@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {CardColor, CardNumber, allColors, allNumbers, CardFeature} from './common'
+import * as lodash from 'lodash'
+import {CardColor, CardNumber, allColors, allNumbers, CardFeature, colorHex} from './common'
 import { connect } from 'react-redux'
 import {State} from './model'
 import { debug } from 'util';
@@ -35,15 +36,27 @@ export class Card extends React.Component<Props> {
             boxShadow: "",
             "-webkit-tap-highlight-color": "transparent",
         }
+        const sc = this.sureColor()
+        if (sc !== null) {
+            style.backgroundColor = colorHex[sc]
+        }
         if (this.props.selected) {
             style.transform = "scale(1.05)"
-            style.boxShadow = "0px 0px 20px 5px #8dc"
+            style.boxShadow = "0px 0px 20px 5px #fb9"
         }
         return <div onClick={this.props.onTap} style={style}>
             {colorSlots}
             {numberSlots}
             <button onClick={wsp(this.props.onDiscard)}>Discard</button>
         </div>
+    }
+
+    sureColor(): CardColor | null {
+        const colors = lodash.chain(this.props.colors).toPairs().filter((pair) => pair[1]).map((pair) => pair[0]).value()
+        if (colors.length == 1) {
+            return colors[0] as CardColor
+        }
+        return null
     }
 }
 
@@ -78,7 +91,8 @@ class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
             width: size,
             height: size,
             borderRadius: size,
-            backgroundColor: this.props.color as string,
+            border: "1px solid #222",
+            backgroundColor: colorHex[this.props.color],
             transition: "all 0.15s",
             transform: "",
         }

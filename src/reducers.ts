@@ -1,11 +1,9 @@
 import {Reducer} from 'redux'
 import * as lodash from 'lodash'
-import * as model from './model'
-import {State, DirectState, defaultState, Card} from './model'
+import {DirectState, defaultState, Card} from './model'
 import {Action} from './actions'
-import {CardFeature, CardColor, CardNumber, allColors} from './common'
+import {CardFeature, CardColor, CardNumber, sameFeatureGroup} from './common'
 import {pluckaroo} from './utils'
-import { debug } from 'util';
 import { wrapReducerWithUndo } from './undo';
 
 const reducer: Reducer<DirectState, Action> = (state, action) => {
@@ -79,9 +77,4 @@ function commitHint(state: DirectState, hint: CardFeature): DirectState {
         })),
         hints: defaultState.hints,
     }
-}
-
-function sameFeatureGroup(a: CardFeature, b: CardFeature): boolean {
-    // Cast in order to run indexOf even though the casts are inaccurate.
-    return (allColors.indexOf(a as CardColor) != -1) == (allColors.indexOf(b as CardColor) != -1)
 }
