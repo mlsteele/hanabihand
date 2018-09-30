@@ -24,6 +24,7 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
+    "@types/react-redux": "^6.0.9",
     "awesome-typescript-loader": "^5.2.0",
     "redux-devtools": "^3.4.1",
     "source-map-loader": "^0.2.4",
