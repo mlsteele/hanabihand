@@ -51,7 +51,7 @@ export default connect<StateProps, DispatchProps, {
     i: number
 }>(
     (state: State, ownProps) => {
-        return state.cards[ownProps.i]
+        return state.live.cards[ownProps.i]
     },
     (dispatch, ownProps) => {
         return {

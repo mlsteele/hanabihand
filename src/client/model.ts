@@ -1,4 +1,5 @@
 import {CardColor, CardNumber, CardFeature} from './common'
+import * as undo from './undo'
 
 export interface Card {
     selected: boolean,
@@ -6,12 +7,15 @@ export interface Card {
     numbers: {[q in CardNumber]: boolean}
 }
 
-export type State = {
+// State with undo-ability.
+export type DirectState = {
     cards: Card[]
     hints: {[q in CardFeature]: boolean}
 }
 
-export const defaultState: State = {
+export type State = undo.State<DirectState>
+
+export const defaultState: DirectState = {
     cards: [0, 1, 2, 3, 4].map((): Card => {
         return {
             selected: false,

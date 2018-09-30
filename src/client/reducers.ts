@@ -1,14 +1,16 @@
 import {Reducer} from 'redux'
 import * as lodash from 'lodash'
-import {State, defaultState, Card} from './model'
+import * as model from './model'
+import {State, DirectState, defaultState, Card} from './model'
 import {Action} from './actions'
 import {CardFeature, CardColor, CardNumber, allColors} from './common'
 import {pluckaroo} from './utils'
 import { debug } from 'util';
+import { wrapReducerWithUndo } from './undo';
 
-const reducer: Reducer<State, Action> = (state, action) => {
+const reducer: Reducer<DirectState, Action> = (state, action) => {
     console.log("action", action.type)
-    if (state == undefined) {
+    if (state === undefined) {
         state = defaultState
     }
     switch (action.type) {
@@ -33,8 +35,13 @@ const reducer: Reducer<State, Action> = (state, action) => {
     }
 }
 
+export default wrapReducerWithUndo(reducer, {
+    limit: 10,
+    undoAction: "undo",
+})
+
 // If a hint and card(s) are selected, commit the hint.
-function hintScan(state: State): State {
+function hintScan(state: DirectState): DirectState {
     const selectedHint: CardFeature | null = getSelectedHint(state)
     const cardsSelected: boolean = state.cards.findIndex((card) => card.selected) != -1;
     if (cardsSelected && selectedHint !== null) {
@@ -43,7 +50,7 @@ function hintScan(state: State): State {
     return state
 }
 
-function getSelectedHint(state: State): (CardFeature | null) {
+function getSelectedHint(state: DirectState): (CardFeature | null) {
     const x = lodash.chain(state.hints).toPairs().find((pair) => pair[1]).value()
     if (x) {
         return x[0] as CardFeature
@@ -52,7 +59,7 @@ function getSelectedHint(state: State): (CardFeature | null) {
 }
 
 // Record all the information from the hint and reset selection.
-function commitHint(state: State, hint: CardFeature): State {
+function commitHint(state: DirectState, hint: CardFeature): DirectState {
     function possible(selected: boolean, key: CardFeature, prev: boolean): boolean {
         if (key == hint) {
             return selected
@@ -78,5 +85,3 @@ function sameFeatureGroup(a: CardFeature, b: CardFeature): boolean {
     // Cast in order to run indexOf even though the casts are inaccurate.
     return (allColors.indexOf(a as CardColor) != -1) == (allColors.indexOf(b as CardColor) != -1)
 }
-
-export default reducer

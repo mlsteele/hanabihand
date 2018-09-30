@@ -3,6 +3,7 @@ import { allColors, allNumbers } from './common';
 import Card from './card';
 import Hint from './hint';
 import Reset from './reset';
+import Undo from './undobutton';
 
 export default class App extends React.Component {
     render() {
@@ -26,6 +27,7 @@ export default class App extends React.Component {
                 {cards}
             </div>
             <Reset/>
+            <Undo/>
         </div>
     }
 }

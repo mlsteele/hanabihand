@@ -43,7 +43,7 @@ export default connect<StateProps, DispatchProps, {
 }>(
     (state: State, ownProps) => {
         return {
-            selected: state.hints[ownProps.feature],
+            selected: state.live.hints[ownProps.feature],
             feature: ownProps.feature,
         }
     },

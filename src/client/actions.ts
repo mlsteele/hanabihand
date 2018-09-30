@@ -30,4 +30,10 @@ export const reset = (): {
     type: "reset",
 })
 
-export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof reset>
+export const undo = (): {
+    type: "undo"
+} => ({
+    type: "undo",
+})
+
+export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof reset> | ReturnType<typeof undo>
