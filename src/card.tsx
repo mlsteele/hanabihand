@@ -34,7 +34,7 @@ export class Card extends React.Component<Props> {
             transition: "all 0.15s",
             transform: "",
             boxShadow: "",
-            "-webkit-tap-highlight-color": "transparent",
+            "WebkitTapHighlightColor": "transparent",
         }
         const sc = this.sureColor()
         if (sc !== null) {

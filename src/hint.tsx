@@ -30,7 +30,7 @@ export class Hint extends React.Component<Props> {
             transition: "all 0.15s",
             transform: "",
             boxShadow: "",
-            "-webkit-tap-highlight-color": "transparent",
+            "WebkitTapHighlightColor": "transparent",
         }
         if (this.props.selected) {
             style.transform = "scale(1.05)"
