@@ -16,14 +16,20 @@ export default class App extends React.Component {
         const cards = [0, 1, 2, 3, 4].map((i) => {
             return <Card key={i} i={i}/>
         })
+        const flexy = {
+            display: 'flex',
+            flexDirection: 'row' as 'row',
+            justifyContent: 'space-around',
+            alignContent: 'stretch',
+        }
         return <div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+            <div style={flexy}>
                 {colorFeatures}
             </div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+            <div style={flexy}>
                 {numberFeatures}
             </div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+            <div style={flexy}>
                 {cards}
             </div>
             <Reset/>

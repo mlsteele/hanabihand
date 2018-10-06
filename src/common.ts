@@ -9,11 +9,11 @@ export var allNumbers: CardNumber[] = [1, 2, 3, 4, 5]
 export type CardFeature = CardColor | CardNumber
 
 export var colorHex = {
-    white: "#F6FBFA",
-    yellow: "#FCEC41",
-    green: "#1AAF3F",
-    blue: "#23C3E6",
-    red: "#E41253",
+    white: "#f6fbfa",
+    yellow: "#fcec41",
+    green: "#1aaf3f",
+    blue: "#23c3e6",
+    red: "#e41253",
 }
 
 export function isColor(x: CardFeature): boolean {

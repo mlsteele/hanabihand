@@ -28,9 +28,10 @@ export class Card extends React.Component<Props> {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
         let style = {
-            margin: 10,
+            // margin: 10,
             padding: 20,
-            backgroundColor: "#cce",
+            borderRadius: 5,
+            backgroundColor: "#333",
             transition: "all 0.15s",
             transform: "",
             boxShadow: "",
@@ -42,20 +43,21 @@ export class Card extends React.Component<Props> {
         }
         if (this.props.selected) {
             style.transform = "scale(1.05)"
-            style.boxShadow = "0px 0px 20px 5px #fb9"
+            style.boxShadow = "0px 0px 20px 5px #222"
         }
         return <div onClick={this.props.onTap} style={style}>
             <div style={{
                 display: 'flex',
-                flexDirection: "column",
             }}>
                 <div style={{
                     display: 'flex',
+                    flexDirection: 'column',
                 }}>
                     {numberSlots}
                 </div>
                 <div style={{
                     display: 'flex',
+                    flexDirection: 'column',
                 }}>
                     {colorSlots}
                 </div>
@@ -100,7 +102,7 @@ class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
     render() {
         let size = 25;
         let style = {
-            margin: 5,
+            margin: "3px 5px",
             width: size,
             height: size,
             borderRadius: size,
@@ -120,7 +122,6 @@ class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
 class NumberSlot extends React.Component<{n: CardNumber, possible: boolean}> {
     render() {
         let style = {
-            padding: 5,
             color: 'white',
             fontSize: "30px",
             textDecoration: "",
