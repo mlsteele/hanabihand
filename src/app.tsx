@@ -28,12 +28,12 @@ export default class App extends React.Component {
             </div>
             <div style={flexy}>
                 {colorFeatures}
+                <Undo/>
             </div>
             <div style={flexy}>
                 {numberFeatures}
+                <Reset/>
             </div>
-            <Reset/>
-            <Undo/>
         </div>
     }
 }

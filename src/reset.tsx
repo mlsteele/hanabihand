@@ -9,7 +9,7 @@ type Props = {
 class Reset extends React.Component<Props> {
     render() {
         return <div onClick={this.props.onTap} >
-            Reset
+            💥 Reset
         </div>
     }
 }

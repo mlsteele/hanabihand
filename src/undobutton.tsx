@@ -8,8 +8,14 @@ type Props = {
 
 class Undo extends React.Component<Props> {
     render() {
-        return <div onClick={this.props.onTap} >
-            Undo
+        const size = "40px"
+        const style = {
+            height: size,
+            textAlign: 'center' as 'center',
+            lineHeight: size,
+        };
+        return <div onClick={this.props.onTap} style={style} >
+            ⟲ Undo
         </div>
     }
 }

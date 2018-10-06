@@ -34,7 +34,7 @@ export class Hint extends React.Component<Props> {
             border: "1px solid #222",
             boxShadow: "",
             fontSize: "24px",
-            textAlign: 'center' as CSS.TextAlignProperty, // why is this cast necessary?
+            textAlign: 'center' as 'center',
             lineHeight: size,
             "WebkitTapHighlightColor": "transparent",
         }
