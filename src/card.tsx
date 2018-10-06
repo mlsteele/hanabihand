@@ -32,6 +32,7 @@ export class Card extends React.Component<Props> {
             padding: 20,
             borderRadius: 5,
             backgroundColor: "#333",
+            border: "1px solid #222",
             transition: "all 0.15s",
             transform: "",
             boxShadow: "",
@@ -42,7 +43,7 @@ export class Card extends React.Component<Props> {
             style.backgroundColor = colorHex[sc]
         }
         if (this.props.selected) {
-            style.transform = "scale(1.05)"
+            style.transform = "scale(1.01)"
             style.boxShadow = "0px 0px 20px 5px #222"
         }
         return <div onClick={this.props.onTap} style={style}>

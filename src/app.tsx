@@ -22,15 +22,15 @@ export default class App extends React.Component {
             justifyContent: 'space-around',
             alignContent: 'stretch',
         }
-        return <div>
+        return <div style={{marginTop: 5}}>
+            <div style={flexy}>
+                {cards}
+            </div>
             <div style={flexy}>
                 {colorFeatures}
             </div>
             <div style={flexy}>
                 {numberFeatures}
-            </div>
-            <div style={flexy}>
-                {cards}
             </div>
             <Reset/>
             <Undo/>
