@@ -24,3 +24,5 @@ export function isColor(x: CardFeature): boolean {
 export function sameFeatureGroup(a: CardFeature, b: CardFeature): boolean {
     return isColor(a) == isColor(b)
 }
+
+export const transitionTime = "0.15s"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as lodash from 'lodash'
-import {CardColor, CardNumber, allColors, allNumbers, CardFeature, colorHex} from './common'
+import {CardColor, CardNumber, allColors, allNumbers, CardFeature, colorHex, transitionTime} from './common'
 import { connect } from 'react-redux'
 import {State, CardPhase} from './model'
 import { debug } from 'util';
@@ -29,18 +29,18 @@ export class Card extends React.Component<Props> {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
 		let styleSquisher = {
-			display: 'flex',
-			flex: "1 1 auto",
-            transition: "all 0.15s",
-			justifyContent: 'space-around',
+			flex: "1 1 1px",
+            transition: `all ${transitionTime}`,
+            overflow: "hidden",
 		}
         let style = {
+            margin: "0 auto",
 			width: 100,
             padding: 20,
             borderRadius: 5,
             backgroundColor: "#333",
             border: "1px solid #222",
-            transition: "all 0.15s",
+            transition: `all ${transitionTime}`,
             transform: "",
             boxShadow: "",
             "WebkitTapHighlightColor": "transparent",
@@ -58,8 +58,10 @@ export class Card extends React.Component<Props> {
             style.transform = "translate(0, -300px)"
             break
         case 'arrive':
+			styleSquisher.flex = "0 1 0px"
+            break
         case 'gone':
-			styleSquisher.flex = "0 1 auto"
+			styleSquisher.flex = "0 1 0px"
 			return <div data-note="squisher" style={styleSquisher}/>
         }
         return <div data-note="squisher" style={styleSquisher}>
@@ -126,7 +128,7 @@ class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
             borderRadius: size,
             border: "1px solid #222",
             backgroundColor: colorHex[this.props.color],
-            transition: "all 0.15s",
+            transition: `all ${transitionTime}`,
             transform: "",
         }
         if (!this.props.possible) {

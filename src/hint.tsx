@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
-import {CardFeature, isColor, colorHex, CardColor} from './common'
+import {CardFeature, isColor, colorHex, CardColor, transitionTime} from './common'
 import {State} from './model'
 import * as actions from './actions'
 import * as CSS from 'csstype';
@@ -27,7 +27,7 @@ export class Hint extends React.Component<Props> {
             flexBasis: 1,
             borderRadius: size,
             transform: "",
-            transition: "all 0.15s",
+            transition: `all ${transitionTime}`,
             verticalAlign: 'middle',
             backgroundColor: "#333",
             color: "white",
