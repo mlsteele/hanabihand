@@ -1,11 +1,19 @@
 import * as React from 'react';
+import { connect } from 'react-redux'
 import { allColors, allNumbers } from './common';
+import {State} from './model';
 import Card from './card';
 import Hint from './hint';
 import Reset from './reset';
 import Undo from './undobutton';
 
-export default class App extends React.Component {
+type StateProps = {
+    state: State
+}
+
+type Props = StateProps
+
+class App extends React.Component<Props> {
     render() {
         const colorFeatures = allColors.map((c) => {
             return <Hint key={c} feature={c}/>
@@ -13,8 +21,8 @@ export default class App extends React.Component {
         const numberFeatures = allNumbers.map((n) => {
             return <Hint key={n} feature={n}/>
         })
-        const cards = [0, 1, 2, 3, 4].map((i) => {
-            return <Card key={i} i={i}/>
+        const cards = this.props.state.live.cards.map((card, i) => {
+            return <Card key={card.id} i={i}/>
         })
         const flexy = {
             display: 'flex',
@@ -37,3 +45,9 @@ export default class App extends React.Component {
         </div>
     }
 }
+
+export default connect<StateProps, {}, {}>(
+    (state: State) => {
+        return {state}
+    }
+)(App)

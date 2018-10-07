@@ -1,10 +1,15 @@
+import * as randomstring from 'randomstring'
 import {CardColor, CardNumber, CardFeature} from './common'
 import * as undo from './undo'
 
+export type CardPhase = 'arrive' | 'stable' | 'flewup' | 'gone'
+
 export interface Card {
+    id: string
     selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
+	phase: CardPhase
 }
 
 // State with undo-ability.
@@ -18,6 +23,7 @@ export type State = undo.State<DirectState>
 export const defaultState: DirectState = {
     cards: [0, 1, 2, 3, 4].map((): Card => {
         return {
+            id: randomstring.generate(),
             selected: false,
             colors: {
                 "white": true,
@@ -33,6 +39,7 @@ export const defaultState: DirectState = {
                 4: true,
                 5: true,
             },
+			phase: 'stable',
         }
     }),
     hints: {

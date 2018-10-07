@@ -1,5 +1,6 @@
 import {Reducer} from 'redux'
 import * as lodash from 'lodash'
+import * as randomstring from 'randomstring'
 import {DirectState, defaultState, Card} from './model'
 import {Action} from './actions'
 import {CardFeature, CardColor, CardNumber, sameFeatureGroup} from './common'
@@ -18,14 +19,24 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
         case "tapHint":
             // Zero or one hint features can be selected at a time.
             const gate = !state.hints[action.feature]
-            const hints = lodash.mapValues(state.hints, (v, k) => ((k == action.feature) && gate)) as {[q in CardFeature]: boolean}
+            const hints = lodash.mapValues(state.hints, (v, k) =>
+                                        ((k == action.feature) && gate)) as {[q in CardFeature]: boolean}
             state = {...state, hints}
             return hintScan(state)
-        case "discard":
-            let cards: Card[] = state.cards.map<Card>(lodash.identity)
-            cards.splice(action.i, 1)
-            cards.push(defaultState.cards[0])
+        case "discard": {
+            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'flewup' as 'flewup'}))
+            cards.push(newCard())
             return {...state, cards}
+        }
+        case "upkeep": {
+            let cards: Card[] = lodash.flatMap(state.cards, upkeep)
+            return {...state, cards}
+        }
+        // case "discard":
+        //     let cards: Card[] = state.cards.map<Card>(lodash.identity)
+        //     cards.splice(action.i, 1)
+        //     cards.push(defaultState.cards[0])
+        //     return {...state, cards}
         case "reset":
             return defaultState
         default:
@@ -37,6 +48,26 @@ export default wrapReducerWithUndo(reducer, {
     limit: 10,
     undoAction: "undo",
 })
+
+function newCard(): Card {
+    return {...defaultState.cards[0],
+        id: randomstring.generate(),
+        phase: 'arrive',
+    }
+}
+
+function upkeep(card: Card): Card[] {
+    switch (card.phase) {
+    case 'arrive':
+        return [{...card, phase: 'stable'}]
+    case 'flewup':
+        return [{...card, phase: 'gone'}]
+    case 'gone':
+        return []
+    default:
+        return [card]
+    }
+}
 
 // If a hint and card(s) are selected, commit the hint.
 function hintScan(state: DirectState): DirectState {

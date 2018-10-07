@@ -24,6 +24,12 @@ export const discard = (i: number): {
     i,
 })
 
+export const upkeep = (): {
+    type: "upkeep"
+} => ({
+    type: "upkeep",
+})
+
 export const reset = (): {
     type: "reset"
 } => ({
@@ -36,4 +42,4 @@ export const undo = (): {
     type: "undo",
 })
 
-export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof reset> | ReturnType<typeof undo>
+export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof upkeep> | ReturnType<typeof reset> | ReturnType<typeof undo>
