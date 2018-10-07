@@ -33,22 +33,22 @@ export class Card extends React.Component<Props> {
         const numberSlots = allNumbers.map((n) => {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
-		let styleSquisher = {
-            padding: "10px 0",
-			flex: "1 1 1px",
+          let styleSquisher = {
+            padding: "15px 0",
+               flex: "1 1 1px",
             transition: `all ${transitionTime}`,
-            overflow: "hidden",
-		}
+            overflowX: "hidden" as "hidden",
+          }
         let style = {
             margin: "0 auto",
-			width: 80,
+               width: 60,
             padding: 20,
             borderRadius: 5,
             backgroundColor: "#333",
             border: "1px solid #222",
             transition: `all ${transitionTime}`,
             transform: "",
-            // boxShadow: "",
+            boxShadow: "",
             "WebkitTapHighlightColor": "transparent",
         }
         const sc = this.sureColor()
@@ -57,42 +57,45 @@ export class Card extends React.Component<Props> {
         }
         if (this.props.selected) {
             style.transform = "scale(1.01) translate(0, -5px) rotate(2deg)"
-            // style.boxShadow = "0px 0px 8px 5px #444"
-		}
+            style.boxShadow = "5px 5px 3px 0px #aaa"
+          }
         let showCard = true
         switch (this.props.phase) {
         case 'arrive':
-			styleSquisher.flex = "0 1 0px"
+               styleSquisher.flex = "0 1 0px"
             setTimeout(onTransitionEnd)
             break
+          case 'flewup':
+            style.transform = "translate(0, -300px) rotate(10deg)"
+               break
         case 'gone':
-			styleSquisher.flex = "0 1 0px"
+               styleSquisher.flex = "0 1 0px"
             style.transform = "translate(0, -300px) rotate(10deg)"
             break
         }
         return <div key={this.props.id} data-note="squisher" data-phase={this.props.phase} style={styleSquisher}
                     onTransitionEnd={onTransitionEnd} >
-			{showCard && <div data-note="card" onClick={this.props.onTap} style={style}
+               {showCard && <div data-note="card" onClick={this.props.onTap} style={style}
                  onTransitionEnd={onTransitionEnd} >
-				<div style={{
-					display: 'flex',
-				}}>
-					<div style={{
-						display: 'flex',
-						flexDirection: 'column',
-					}}>
-						{numberSlots}
-					</div>
-					<div style={{
-						display: 'flex',
-						flexDirection: 'column',
-					}}>
-						{colorSlots}
-					</div>
-				</div>
-				<button onClick={wsp(this.props.onDiscard)}>Discard</button>
-			</div>}
-		</div>
+                    <div style={{
+                         display: 'flex',
+                    }}>
+                         <div style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                         }}>
+                              {numberSlots}
+                         </div>
+                         <div style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                         }}>
+                              {colorSlots}
+                         </div>
+                    </div>
+                    <button onClick={wsp(this.props.onDiscard)}>Discard</button>
+               </div>}
+          </div>
     }
 
     sureColor(): CardColor | null {

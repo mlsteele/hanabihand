@@ -30,7 +30,7 @@ class App extends React.Component<Props> {
             justifyContent: 'space-around',
             alignContent: 'stretch',
         }
-        return <div style={{marginTop: 5}}>
+        return <div>
             <div style={flexy}>
                 {cards}
             </div>

@@ -24,24 +24,23 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
             state = {...state, hints}
             return hintScan(state)
         case "discard": {
-            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'gone' as 'gone'}))
+            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'flewup' as 'flewup'}))
             cards.push(newCard())
             return {...state, cards}
         }
         case "transitionEnd": {
             let cards: Card[] = lodash.flatMap(state.cards, (card) => {
-                if (card.id == action.cardID && action.phase == card.phase) {
+                if (card.id == action.cardID && card.phase == action.phase) {
                     return nextPhase(card)
                 }
+                    if (action.phase == 'flewup' && card.phase == 'arrive') {
+                         // Any card reaching the sky starts the expansion of arrivals.
+                         return [{...card, phase: 'stable' as 'stable'}]
+                    }
                 return [card]
             })
             return {...state, cards}
         }
-        // case "discard":
-        //     let cards: Card[] = state.cards.map<Card>(lodash.identity)
-        //     cards.splice(action.i, 1)
-        //     cards.push(defaultState.cards[0])
-        //     return {...state, cards}
         case "reset":
             return defaultState
         default:
@@ -64,9 +63,11 @@ function newCard(): Card {
 function nextPhase(card: Card): Card[] {
     switch (card.phase) {
     case 'arrive':
-        return [{...card, phase: 'stable'}]
+        return [card] // not advance here
+     case 'flewup':
+        return [{...card, phase: 'gone'}]
     case 'gone':
-        return []
+        return [] // remove from tree
     default:
         return [card]
     }

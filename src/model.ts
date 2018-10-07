@@ -2,14 +2,18 @@ import * as randomstring from 'randomstring'
 import {CardColor, CardNumber, CardFeature} from './common'
 import * as undo from './undo'
 
-export type CardPhase = 'arrive' | 'stable' | 'gone'
+export type CardPhase =
+     | 'arrive' // new card invisible, zero width
+     | 'stable' // stable state
+     | 'flewup' // up in the air
+     | 'gone'   // slot vacated, zero width
 
 export interface Card {
     id: string
     selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
-	phase: CardPhase
+     phase: CardPhase
 }
 
 // State with undo-ability.
@@ -39,7 +43,7 @@ export const defaultState: DirectState = {
                 4: true,
                 5: true,
             },
-			phase: 'stable',
+               phase: 'stable',
         }
     }),
     hints: {
