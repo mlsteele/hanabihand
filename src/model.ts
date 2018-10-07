@@ -2,7 +2,7 @@ import * as randomstring from 'randomstring'
 import {CardColor, CardNumber, CardFeature} from './common'
 import * as undo from './undo'
 
-export type CardPhase = 'arrive' | 'stable' | 'flewup' | 'gone'
+export type CardPhase = 'arrive' | 'stable' | 'gone'
 
 export interface Card {
     id: string

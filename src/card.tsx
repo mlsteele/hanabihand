@@ -34,20 +34,21 @@ export class Card extends React.Component<Props> {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
 		let styleSquisher = {
+            padding: "10px 0",
 			flex: "1 1 1px",
             transition: `all ${transitionTime}`,
             overflow: "hidden",
 		}
         let style = {
             margin: "0 auto",
-			width: 100,
+			width: 80,
             padding: 20,
             borderRadius: 5,
             backgroundColor: "#333",
             border: "1px solid #222",
             transition: `all ${transitionTime}`,
             transform: "",
-            boxShadow: "",
+            // boxShadow: "",
             "WebkitTapHighlightColor": "transparent",
         }
         const sc = this.sureColor()
@@ -55,22 +56,21 @@ export class Card extends React.Component<Props> {
             style.backgroundColor = colorHex[sc]
         }
         if (this.props.selected) {
-            style.transform = "scale(1.01)"
-            style.boxShadow = "0px 0px 20px 5px #222"
+            style.transform = "scale(1.01) translate(0, -5px) rotate(2deg)"
+            // style.boxShadow = "0px 0px 8px 5px #444"
 		}
         let showCard = true
         switch (this.props.phase) {
-        case 'flewup':
-            style.transform = "translate(0, -300px)"
-            break
         case 'arrive':
 			styleSquisher.flex = "0 1 0px"
             setTimeout(onTransitionEnd)
+            break
         case 'gone':
 			styleSquisher.flex = "0 1 0px"
-            showCard = false
+            style.transform = "translate(0, -300px) rotate(10deg)"
+            break
         }
-        return <div data-note="squisher" data-phase={this.props.phase} style={styleSquisher}
+        return <div key={this.props.id} data-note="squisher" data-phase={this.props.phase} style={styleSquisher}
                     onTransitionEnd={onTransitionEnd} >
 			{showCard && <div data-note="card" onClick={this.props.onTap} style={style}
                  onTransitionEnd={onTransitionEnd} >

@@ -24,7 +24,7 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
             state = {...state, hints}
             return hintScan(state)
         case "discard": {
-            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'flewup' as 'flewup'}))
+            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'gone' as 'gone'}))
             cards.push(newCard())
             return {...state, cards}
         }
@@ -65,8 +65,6 @@ function nextPhase(card: Card): Card[] {
     switch (card.phase) {
     case 'arrive':
         return [{...card, phase: 'stable'}]
-    case 'flewup':
-        return [{...card, phase: 'gone'}]
     case 'gone':
         return []
     default:
