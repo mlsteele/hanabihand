@@ -1,4 +1,5 @@
 import {CardFeature} from './common'
+import {CardPhase} from './model'
 
 export const tapCard = (i: number): {
     type: "tapCard"
@@ -24,10 +25,14 @@ export const discard = (i: number): {
     i,
 })
 
-export const upkeep = (): {
-    type: "upkeep"
+export const transitionEnd = (cardID: string, phase: CardPhase): {
+    type: "transitionEnd"
+    cardID: string,
+    phase: CardPhase,
 } => ({
-    type: "upkeep",
+    type: "transitionEnd",
+    cardID,
+    phase,
 })
 
 export const reset = (): {
@@ -42,4 +47,4 @@ export const undo = (): {
     type: "undo",
 })
 
-export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof upkeep> | ReturnType<typeof reset> | ReturnType<typeof undo>
+export type Action = ReturnType<typeof tapCard> | ReturnType<typeof tapHint> | ReturnType<typeof discard> | ReturnType<typeof transitionEnd> | ReturnType<typeof reset> | ReturnType<typeof undo>

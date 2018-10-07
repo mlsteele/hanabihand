@@ -8,7 +8,7 @@ import {pluckaroo} from './utils'
 import { wrapReducerWithUndo } from './undo';
 
 const reducer: Reducer<DirectState, Action> = (state, action) => {
-    console.log("action", action.type)
+    console.log("action", action.type, action)
     if (state === undefined) {
         state = defaultState
     }
@@ -28,8 +28,13 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
             cards.push(newCard())
             return {...state, cards}
         }
-        case "upkeep": {
-            let cards: Card[] = lodash.flatMap(state.cards, upkeep)
+        case "transitionEnd": {
+            let cards: Card[] = lodash.flatMap(state.cards, (card) => {
+                if (card.id == action.cardID && action.phase == card.phase) {
+                    return nextPhase(card)
+                }
+                return [card]
+            })
             return {...state, cards}
         }
         // case "discard":
@@ -56,7 +61,7 @@ function newCard(): Card {
     }
 }
 
-function upkeep(card: Card): Card[] {
+function nextPhase(card: Card): Card[] {
     switch (card.phase) {
     case 'arrive':
         return [{...card, phase: 'stable'}]

@@ -25,7 +25,7 @@ export default connect<{}, {onTap: () => void}, {}>(
     (dispatch) => {
         return {
             onTap: () => {
-                dispatch(actions.upkeep())
+                dispatch(actions.undo())
             }
         }
     }

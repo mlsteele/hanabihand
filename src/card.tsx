@@ -7,6 +7,7 @@ import { debug } from 'util';
 import * as actions from './actions'
 
 type StateProps = {
+    id: string
     selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
@@ -16,12 +17,16 @@ type StateProps = {
 type DispatchProps = {
     onTap: () => void
     onDiscard: () => void
+    onTransitionEnd: (cardID: string, phase: CardPhase) => void
 }
 
 type Props = StateProps & DispatchProps
 
 export class Card extends React.Component<Props> {
     render() {
+        const onTransitionEnd = lodash.once(() => {
+            this.props.onTransitionEnd(this.props.id, this.props.phase)
+        })
         const colorSlots = allColors.map((color) => {
             return <ColorSlot key={color} color={color} possible={this.props.colors[color]}/>
         })
@@ -53,19 +58,22 @@ export class Card extends React.Component<Props> {
             style.transform = "scale(1.01)"
             style.boxShadow = "0px 0px 20px 5px #222"
 		}
+        let showCard = true
         switch (this.props.phase) {
         case 'flewup':
             style.transform = "translate(0, -300px)"
             break
         case 'arrive':
 			styleSquisher.flex = "0 1 0px"
-            break
+            setTimeout(onTransitionEnd)
         case 'gone':
 			styleSquisher.flex = "0 1 0px"
-			return <div data-note="squisher" style={styleSquisher}/>
+            showCard = false
         }
-        return <div data-note="squisher" style={styleSquisher}>
-			<div data-note="card" onClick={this.props.onTap} style={style}>
+        return <div data-note="squisher" data-phase={this.props.phase} style={styleSquisher}
+                    onTransitionEnd={onTransitionEnd} >
+			{showCard && <div data-note="card" onClick={this.props.onTap} style={style}
+                 onTransitionEnd={onTransitionEnd} >
 				<div style={{
 					display: 'flex',
 				}}>
@@ -83,7 +91,7 @@ export class Card extends React.Component<Props> {
 					</div>
 				</div>
 				<button onClick={wsp(this.props.onDiscard)}>Discard</button>
-			</div>
+			</div>}
 		</div>
     }
 
@@ -114,6 +122,7 @@ export default connect<StateProps, DispatchProps, {
         return {
             onTap: () => dispatch(actions.tapCard(ownProps.i)),
             onDiscard: () => dispatch(actions.discard(ownProps.i)),
+            onTransitionEnd: (cardID, phase) => dispatch(actions.transitionEnd(cardID, phase)),
         }
     }
 )(Card)
