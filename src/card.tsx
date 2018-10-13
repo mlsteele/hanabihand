@@ -16,7 +16,6 @@ type StateProps = {
 
 type DispatchProps = {
     onTap: () => void
-    onDiscard: () => void
     onTransitionEnd: (cardID: string, phase: CardPhase) => void
 }
 
@@ -58,18 +57,20 @@ export class Card extends React.Component<Props> {
         if (this.props.selected) {
             style.transform = "scale(1.01) translate(0, -5px) rotate(2deg)"
             style.boxShadow = "5px 5px 3px 0px #aaa"
-          }
+        }
         let showCard = true
         switch (this.props.phase) {
         case 'arrive':
-               styleSquisher.flex = "0 1 0px"
+            styleSquisher.flex = "0 1 0px"
             setTimeout(onTransitionEnd)
             break
-          case 'flewup':
+        case 'flewup':
+            // disable transition of box shadow since it causes jank when discarding
+            style.transition = `transform ${transitionTime}`
             style.transform = "translate(0, -300px) rotate(10deg)"
-               break
+            break
         case 'gone':
-               styleSquisher.flex = "0 1 0px"
+            styleSquisher.flex = "0 1 0px"
             style.transform = "translate(0, -300px) rotate(10deg)"
             break
         }
@@ -93,7 +94,6 @@ export class Card extends React.Component<Props> {
                               {colorSlots}
                          </div>
                     </div>
-                    <button onClick={wsp(this.props.onDiscard)}>Discard</button>
                </div>}
           </div>
     }
@@ -124,7 +124,6 @@ export default connect<StateProps, DispatchProps, {
     (dispatch, ownProps) => {
         return {
             onTap: () => dispatch(actions.tapCard(ownProps.i)),
-            onDiscard: () => dispatch(actions.discard(ownProps.i)),
             onTransitionEnd: (cardID, phase) => dispatch(actions.transitionEnd(cardID, phase)),
         }
     }

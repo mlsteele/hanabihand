@@ -17,12 +17,10 @@ export const tapHint = (feature: CardFeature): {
     feature,
 })
 
-export const discard = (i: number): {
+export const discard = (): {
     type: "discard"
-    i: number,
 } => ({
     type: "discard",
-    i,
 })
 
 export const transitionEnd = (cardID: string, phase: CardPhase): {

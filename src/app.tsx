@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { allColors, allNumbers } from './common';
 import {State} from './model';
 import Card from './card';
-import Hint from './hint';
+import Tray from './tray';
 import Reset from './reset';
 import Undo from './undobutton';
 
@@ -15,12 +15,6 @@ type Props = StateProps
 
 class App extends React.Component<Props> {
     render() {
-        const colorFeatures = allColors.map((c) => {
-            return <Hint key={c} feature={c}/>
-        })
-        const numberFeatures = allNumbers.map((n) => {
-            return <Hint key={n} feature={n}/>
-        })
         const cards = this.props.state.live.cards.map((card, i) => {
             return <Card key={card.id} i={i}/>
         })
@@ -35,13 +29,10 @@ class App extends React.Component<Props> {
                 {cards}
             </div>
             <div style={flexy}>
-                {colorFeatures}
-                <Undo/>
+                <Undo />
+                <Reset />
             </div>
-            <div style={flexy}>
-                {numberFeatures}
-                <Reset/>
-            </div>
+            <Tray />
         </div>
     }
 }

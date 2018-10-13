@@ -22,10 +22,11 @@ export class Hint extends React.Component<Props> {
         const style = {
             // width: 80,
             height: size,
+            padding: '2px 8px',
             margin: 5,
             flexGrow: 1,
             flexBasis: 1,
-            borderRadius: size,
+            borderRadius: 6,
             transform: "",
             transition: `all ${transitionTime}`,
             verticalAlign: 'middle',
@@ -45,7 +46,8 @@ export class Hint extends React.Component<Props> {
         if (isColor(this.props.feature)) {
             const color = colorHex[this.props.feature as CardColor]
             style.backgroundColor = color
-            style.color = shadeColor2(color, 0.5)
+            // style.color = shadeColor2(color, 0.5)
+            style.color = "#111"
         }
         return <div onClick={this.props.onTap} style={style}>
             {this.props.feature}

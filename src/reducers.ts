@@ -24,7 +24,7 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
             state = {...state, hints}
             return hintScan(state)
         case "discard": {
-            let cards = pluckaroo(state.cards, action.i, (x) => ({...x, phase: 'flewup' as 'flewup'}))
+            let cards = discardOneSelected(state.cards)
             cards.push(newCard())
             return {...state, cards}
         }
@@ -58,6 +58,20 @@ function newCard(): Card {
         id: randomstring.generate(),
         phase: 'arrive',
     }
+}
+
+function discardOneSelected(cards: Card[]): Card[] {
+    let found = false
+    return cards.map((card) => {
+        if (!found && card.selected) {
+            return {...card,
+                selected: false,
+                phase: 'flewup' as 'flewup'
+            }
+            found = true
+        }
+        return card
+    })
 }
 
 function nextPhase(card: Card): Card[] {
