@@ -61,14 +61,12 @@ function newCard(): Card {
 }
 
 function discardOneSelected(cards: Card[]): Card[] {
-    let found = false
     return cards.map((card) => {
-        if (!found && card.selected) {
+        if (card.selected) {
             return {...card,
                 selected: false,
                 phase: 'flewup' as 'flewup'
             }
-            found = true
         }
         return card
     })

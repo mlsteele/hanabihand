@@ -52,7 +52,7 @@ export class Hint extends React.Component<Props> {
             style.color = "rgba(0,0,0,0.7)"
         }
         return <div onClick={this.props.onTap} style={style}>
-            {isc && this.props.feature.substring(0,1)}
+            {isc && (this.props.feature as string).substring(0,1)}
             {!isc && this.props.feature}
         </div>
     }

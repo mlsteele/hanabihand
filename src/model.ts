@@ -25,7 +25,7 @@ export type DirectState = {
 export type State = undo.State<DirectState>
 
 export const defaultState: DirectState = {
-    cards: [0, 1, 2, 3, 4].map((i): Card => {
+    cards: indices().map((i): Card => {
         return {
             id: randomstring.generate(),
             // selected: i == 1,
@@ -59,4 +59,12 @@ export const defaultState: DirectState = {
         4: false,
         5: false,
     },
+}
+
+function indices(): number[] {
+    let ret = [0, 1, 2, 3]
+    if (window.location.search !== "?4" ) {
+        ret.push(4)
+    }
+    return ret
 }

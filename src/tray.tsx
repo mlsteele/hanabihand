@@ -40,7 +40,6 @@ export class Tray extends React.Component<Props> {
         }
         if (!this.props.show) {
             style.height = "0"
-            style.padding = 0
             style.transition = `all 0.22s cubic-bezier(0,-0.01,.81,-0.03)`
         }
         const flexy = {
