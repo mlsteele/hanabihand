@@ -1,10 +1,10 @@
 # Hanabi Hand
 
+[Demo: See it here!](https://milessteele.com/hanabi)
+
 Keep track of the hints people have given about your hand. For the card game [Hanabi](https://en.wikipedia.org/wiki/Hanabi_(card_game)).
 
 It works best on a phone in landscape orientation.
-
-[Demo: See it here!](https://milessteele.com/hanabi)
 
 ![Screenshot](resources/framed.png)
 
