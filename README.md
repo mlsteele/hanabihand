@@ -2,11 +2,17 @@
 
 Keep track of the hints people have given about your hand. For the card game [Hanabi](https://en.wikipedia.org/wiki/Hanabi_(card_game)).
 
+It works best on a phone in landscape orientation.
+
+[Demo: See it here!](https://milessteele.com/hanabi)
+
 ![Screenshot](resources/framed.png)
+
+[Demo right this way](https://milessteele.com/hanabi)
 
 ## Development
 
-Install dependencies.
+Install dependencies. And there are so many.
 ```
 $ npm ci
 ```
