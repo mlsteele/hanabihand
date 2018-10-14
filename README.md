@@ -16,7 +16,7 @@ Build the thing.
 $ npm run build
 ```
 
-Alternatively, this build when the source changes.
+Alternatively, this rebuilds when the source changes.
 ```
 $ npm run watch
 ```
