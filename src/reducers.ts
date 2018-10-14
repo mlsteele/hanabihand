@@ -51,6 +51,15 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
 export default wrapReducerWithUndo(reducer, {
     limit: 10,
     undoAction: "undo",
+    filter: (action: Action) => {
+        switch (action.type) {
+        case "tapHint":
+        case "discard":
+        case "reset":
+            return true
+        }
+        return false
+    }
 })
 
 function newCard(): Card {
