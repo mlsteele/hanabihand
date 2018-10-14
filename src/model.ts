@@ -28,8 +28,8 @@ export const defaultState: DirectState = {
     cards: [0, 1, 2, 3, 4].map((i): Card => {
         return {
             id: randomstring.generate(),
-            selected: i == 1,
-            // selected: false,
+            // selected: i == 1,
+            selected: false,
             colors: {
                 "white": true,
                 "yellow": true,

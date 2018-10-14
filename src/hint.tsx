@@ -22,8 +22,8 @@ export class Hint extends React.Component<Props> {
         const style = {
             // width: 80,
             height: size,
+            margin: '0 6px',
             padding: '2px 8px',
-            margin: 5,
             flexGrow: 1,
             flexBasis: 1,
             borderRadius: 6,
@@ -43,14 +43,17 @@ export class Hint extends React.Component<Props> {
             style.transform = "scale(1.05)"
             style.boxShadow = "0px 0px 5px 0px #222"
         }
-        if (isColor(this.props.feature)) {
+        const isc = isColor(this.props.feature)
+        if (isc) {
             const color = colorHex[this.props.feature as CardColor]
             style.backgroundColor = color
-            // style.color = shadeColor2(color, 0.5)
-            style.color = "#111"
+            // style.color = shadeColor2(color, -0.6)
+            // style.color = "#111"
+            style.color = "rgba(0,0,0,0.7)"
         }
         return <div onClick={this.props.onTap} style={style}>
-            {this.props.feature}
+            {isc && this.props.feature.substring(0,1)}
+            {!isc && this.props.feature}
         </div>
     }
 }

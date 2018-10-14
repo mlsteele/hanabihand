@@ -33,31 +33,33 @@ export class Tray extends React.Component<Props> {
             width: "100%",
             height: "200px",
             bottom: 0,
-            padding: 20,
-            display: 'flex',
-            flexDirection: 'row' as 'row',
             overflow: "hidden",
             backgroundColor: "white",
             boxShadow: "0px 0px 10px 0px #0008",
             transition: `all 0.22s cubic-bezier(0,1.03,0,1.02)`,
-        }
-        const flexy = {
-            display: 'flex',
-            flexDirection: 'row' as 'row',
-            justifyContent: 'space-around',
-            alignContent: 'stretch',
         }
         if (!this.props.show) {
             style.height = "0"
             style.padding = 0
             style.transition = `all 0.22s cubic-bezier(0,-0.01,.81,-0.03)`
         }
+        const flexy = {
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignContent: 'stretch',
+        }
         return <div style={style}>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <div style={flexy}>{colorFeatures}</div>
-                <div style={flexy}>{numberFeatures}</div>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                margin: 20,
+            }}>
+                <div style={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
+                    <div style={{...flexy, marginBottom: 10}}>{colorFeatures}</div>
+                    <div style={flexy}>{numberFeatures}</div>
+                </div>
+                <Discard enabled={this.props.showDiscard} onTap={this.props.onDiscard} />
             </div>
-            <Discard enabled={this.props.showDiscard} onTap={this.props.onDiscard} />
         </div>
     }
 }

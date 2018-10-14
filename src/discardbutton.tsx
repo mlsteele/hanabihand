@@ -9,6 +9,7 @@ export default class Discard extends React.Component<Props> {
     render() {
         const style = {
             color: '#333',
+            margin: '0 6px',
             padding: '0 10px',
             fontSize: "24px",
             backgroundColor: 'white',
