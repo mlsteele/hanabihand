@@ -32,15 +32,15 @@ export class Card extends React.Component<Props> {
         const numberSlots = allNumbers.map((n) => {
             return <NumberSlot key={n} n={n} possible={this.props.numbers[n]}/>
         })
-          let styleSquisher = {
+        let styleSquisher = {
             padding: "15px 0",
-               flex: "1 1 1px",
+            flex: "1 1 1px",
             transition: `all ${transitionTime}`,
             overflowX: "hidden" as "hidden",
-          }
+        }
         let style = {
             margin: "0 auto",
-               width: 60,
+            width: 55,
             padding: 20,
             borderRadius: 5,
             backgroundColor: "#333",
@@ -90,6 +90,7 @@ export class Card extends React.Component<Props> {
                          <div style={{
                               display: 'flex',
                               flexDirection: 'column',
+                              paddingLeft: 5,
                          }}>
                               {colorSlots}
                          </div>
@@ -131,9 +132,9 @@ export default connect<StateProps, DispatchProps, {
 
 class ColorSlot extends React.Component<{color: CardColor, possible: boolean}> {
     render() {
-        let size = 25;
+        let size = 28;
         let style = {
-            margin: "3px 5px",
+            margin: "3px 0px",
             width: size,
             height: size,
             borderRadius: size,
