@@ -1,6 +1,6 @@
 import * as randomstring from 'randomstring'
 import {CardColor, CardNumber, CardFeature} from './common'
-import * as undo from './undo1'
+import * as undo from './undo'
 
 export type CardPhase =
      | 'arrive' // new card invisible, zero width
