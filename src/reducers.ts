@@ -43,6 +43,10 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
         }
         case "reset":
             return defaultState
+        case "undo":
+            // An undo just happened so clean up by deselecting everything.
+            const cards = state.cards.map((c) => ({...c, selected: false}))
+            return {...state, cards}
         default:
             return state
     }
