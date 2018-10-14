@@ -5,7 +5,7 @@ import {DirectState, defaultState, Card} from './model'
 import {Action} from './actions'
 import {CardFeature, CardColor, CardNumber, sameFeatureGroup} from './common'
 import {pluckaroo} from './utils'
-import { wrapReducerWithUndo } from './undo';
+import { wrapReducerWithUndo } from './undo1';
 
 const reducer: Reducer<DirectState, Action> = (state, action) => {
     console.log("action", action.type, action)

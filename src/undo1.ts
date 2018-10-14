@@ -10,7 +10,9 @@ export interface Options<T> {
     undoAction: T
 }
 
-export function wrapReducerWithUndo<S, T, A extends Action<T>>(reducer: Reducer<S,A>, opts: Options<T>): Reducer<State<S>,A> {
+export function wrapReducerWithUndo
+    <S, T, A extends Action<T>>
+(reducer: Reducer<S,A>, opts: Options<T>): Reducer<State<S>,A> {
     return (state: State<S> | undefined, action: A): State<S> => {
         if (state === undefined) {
             return {

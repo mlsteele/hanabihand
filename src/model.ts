@@ -1,6 +1,6 @@
 import * as randomstring from 'randomstring'
 import {CardColor, CardNumber, CardFeature} from './common'
-import * as undo from './undo'
+import * as undo from './undo1'
 
 export type CardPhase =
      | 'arrive' // new card invisible, zero width
@@ -13,7 +13,7 @@ export interface Card {
     selected: boolean,
     colors: {[q in CardColor]: boolean}
     numbers: {[q in CardNumber]: boolean}
-     phase: CardPhase
+    phase: CardPhase
 }
 
 // State with undo-ability.
