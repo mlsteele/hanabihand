@@ -6,8 +6,9 @@ import {Action} from './actions'
 import {CardFeature, CardColor, CardNumber, sameFeatureGroup} from './common'
 import {pluckaroo} from './utils'
 import { wrapReducerWithUndo } from './undo';
+import persist from './persist';
 
-const reducer: Reducer<DirectState, Action> = (state, action) => {
+const reducer1: Reducer<DirectState, Action> = (state, action) => {
     console.log("action", action.type, action)
     if (state === undefined) {
         state = defaultState
@@ -52,7 +53,7 @@ const reducer: Reducer<DirectState, Action> = (state, action) => {
     }
 }
 
-export default wrapReducerWithUndo(reducer, {
+const reducer2 = wrapReducerWithUndo(reducer1, {
     limit: 10,
     undoAction: "undo",
     filter: (action: Action) => {
@@ -65,6 +66,14 @@ export default wrapReducerWithUndo(reducer, {
         return false
     }
 })
+const persistOut = persist(reducer2, {
+    key: 'rootState',
+    schemaVersion: 1,
+})
+const {reducer, restoreState} = persistOut
+
+export {reducer}
+export {restoreState}
 
 function newCard(): Card {
     return {...defaultState.cards[0],
